@@ -66,18 +66,21 @@ void merge(vector <Entry>& data, int n1, int n2)
     int i ;// array index to copy from temp back to data
 
     temp = new Entry[n1 + n2];
-
+    vector<Entry>::iterator first = data.begin()+n1; 
+    vector<Entry>::iterator last = data.end();
+    vector<Entry> subvec(first,last);
+ 
     while ((copied1 < n1) && (copied2 < n2)){
-        if(data[copied1] < data[n1+copied2])
+        if(data[copied1] < subvec[copied2])
             temp[copied++] = data[copied1++];
         else
-	    temp[copied++] = data[n1+copied2+1];
+	    temp[copied++] = subvec[copied2++];
     }
     
     while(copied1 < n1)
         temp[copied++] = data[copied1++];
     while(copied2 < n2)
-        temp[copied++] = data[n1+copied2+1];
+        temp[copied++] = subvec[copied2++];
 
     for(i = 0; i < n1 + n2; i++){
         data[i] = temp[i];
